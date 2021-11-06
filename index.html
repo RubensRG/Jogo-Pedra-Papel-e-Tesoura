@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo pedra, papel e tesoura</title>
+    <link rel="icon" href="https://st2.depositphotos.com/1340907/8260/v/600/depositphotos_82602614-stock-illustration-rock-paper-scissors.jpg">
+    <link rel="stylesheet" href="style/footer.css">
+    <style>
+        *{
+    font-family: Helvetica;
+    font-weight: 400;
+}
+
+#titulo{
+    color: black;
+    text-align: center;
+}
+
+#placar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#jogador, #computador{
+    position: relative;
+    flex-grow: 1;
+    border-radius: 5px;
+    width: 200px;
+    padding: 20px;
+    color: #fff;
+}
+
+#jogador{
+    background-color: #74b9ff;
+}
+
+#computador{
+    background-color: #ff7675;
+}
+
+#versus{
+    font-size: 50px;
+    text-align: center;
+    width: 70px;
+    color: black;
+}
+
+#jogador-nome, #computador-nome{
+    margin: 0;
+    padding: 0;
+}
+
+#jogador-nome{
+    text-align: left;
+}
+
+#computador-nome{
+    text-align: right;
+}
+
+#jogador-pontos, #computador-pontos{
+    position: absolute;
+    top: 8px;
+    font-size: 32px;
+}
+
+#jogador-pontos{
+    right: 20px;
+}
+
+ul#jogador-escolha, ul#computador-escolha{
+    list-style: none;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+ul#jogador-escolha li, ul#computador-escolha li{
+    display: inline;
+}
+
+ul#jogador-escolha li a, ul#computador-escolha li a{
+    opacity: .2;
+}
+
+ul#jogador-escolha li a:hover, ul#jogador-escolha
+li a.selecionado, ul#computador-escolha li a.selecionado{
+    opacity: 1;
+}
+ul#jogador-escolha li a img, ul#computador-escolha li a img{
+    max-width: 80px;
+}
+
+#mensagens{
+    /* background-color: rgb(146, 145, 145); */
+    font-size: 32px;
+    border-radius: 7px;
+    padding: 2 0px;
+    margin: 50px 0;
+}
+    </style>
+</head>
+<body>
+    <div id="principal">
+        <h1 id="titulo">Pedra, Papel e Tesoura</h1>
+        <div id="placar">
+            <div id="jogador">
+                <h2 id="jogador-nome">Jogador</h2>
+                <span id="jogador-pontos">0</span>
+
+                <ul id="jogador-escolha">
+                    <li><a id="jogador-escolha-1" onclick="jogar(1)"><img src="./images/pedra.png"></a></li>
+                    <li><a id="jogador-escolha-2" onclick="jogar(2)"><img src="./images/papel.png"></a></li>
+                    <li><a id="jogador-escolha-3" onclick="jogar(3)"><img src="./images/tesoura.png"></a></li>
+                </ul>
+            </div>
+
+            <div id="versus">VS</div>
+
+            <div id="computador">
+                <h2 id="computador-nome">Computador</h2>
+                <span id="computador-pontos">0</span>
+
+                <ul id="computador-escolha">
+                    <li><a id="computador-escolha-1"><img src="./images/pedra.png"></a></li>
+                    <li><a id="computador-escolha-2"><img src="./images/papel.png"></a></li>
+                    <li><a id="computador-escolha-3"><img src="./images/tesoura.png"></a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="mensagens">Resultado</div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/f0bdec64e2.js" crossorigin="anonymous"></script>
+    <script>
+        var jogadorEscolha = 0
+        var jogadorPontuacao = 0
+        var computadorEscolha = 0 
+        var computadorPontuacao = 0
+        var ganhador = -1
+
+
+        function jogar(escolha){
+            jogadorEscolha = escolha
+
+            computadorEscolha = Math.floor((Math.random() * (3 - 1 + 1))) + 1;
+
+            // 1 - Pedra
+            // 2 - Papel
+            // 3 - Tesoura
+            if((jogadorEscolha == 1) && (computadorEscolha == 1)){
+                ganhador = 0
+            }
+            else if((jogadorEscolha == 1) && (computadorEscolha == 2)){
+                ganhador = 2
+                
+            }
+            else if((jogadorEscolha == 1) && (computadorEscolha == 3)){
+                ganhador = 1
+                
+            }
+            else if((jogadorEscolha == 2) && (computadorEscolha == 1)){
+                ganhador = 1
+                
+            }
+            else if((jogadorEscolha == 2) && (computadorEscolha == 2)){
+                ganhador = 0
+            }
+            else if((jogadorEscolha == 2) && (computadorEscolha == 3)){
+                ganhador = 2
+                
+            }
+            else if((jogadorEscolha == 3) && (computadorEscolha == 1)){
+                ganhador = 2
+                
+            }
+            else if((jogadorEscolha == 3) && (computadorEscolha == 2)){
+                ganhador = 1
+                
+            }
+            else if((jogadorEscolha == 3) && (computadorEscolha == 3)){
+                ganhador = 0
+            }
+            document.getElementById("jogador-escolha-1").classList
+            .remove('selecionado')
+            document.getElementById("jogador-escolha-2").classList
+            .remove('selecionado')
+            document.getElementById("jogador-escolha-3").classList
+            .remove('selecionado')
+            document.getElementById("computador-escolha-1").classList
+            .remove('selecionado')
+            document.getElementById("computador-escolha-2").classList
+            .remove('selecionado')
+            document.getElementById("computador-escolha-3").classList
+            .remove('selecionado')
+
+            document.getElementById("jogador-escolha-" + jogadorEscolha).classList
+            .add('selecionado')
+            document.getElementById("computador-escolha-" + computadorEscolha).classList
+            .add('selecionado')
+
+            if(ganhador == 0){
+                document.getElementById('mensagens').innerHTML = 'Empate'
+            }
+
+            else if(ganhador == 1){
+                document.getElementById('mensagens').innerHTML = 'Jogador ganhou'
+                jogadorPontuacao++
+            }
+
+            else if(ganhador == 2){
+                document.getElementById('mensagens').innerHTML = 'Computador ganhou'
+                computadorPontuacao++
+            }   
+            document.getElementById('jogador-pontos').innerHTML = jogadorPontuacao
+            document.getElementById('computador-pontos').innerHTML = computadorPontuacao
+           
+              
+        }
+    </script>
+<footer>
+    <section class="footer">
+<footer class="footer">
+    <div class="container">
+        <div class="contatos">
+            <a href="https://www.instagram.com/rubensribeiro95/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/in/rubens-ribeiro-b14498221/" target="_blank"><i class="fab fa-linkedin-in"></i></a>              
+        </div>
+        <div class="direitosReserv">                
+            <h5>
+                &copy; 2021 JOGO PEDRA, PAPEL E TESOURA.
+            </h5>
+            <h5>
+                Jogo recriado por Rubens Ribeiro
+            </h5>
+        </div>
+    </div>
+</footer>
+</section>
+</footer>
+</body>
+</html>
